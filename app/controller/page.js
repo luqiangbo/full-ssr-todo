@@ -5,7 +5,6 @@ const ssrConfig = require('../../config/config.ssr')
 class PageController extends Controller {
   async index() {
     const { ctx } = this
-    let aaa = '123'
     try {
       // Page为webpack打包的chunkName，项目默认的entry为Page
       ctx.type = 'text/html'

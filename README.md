@@ -21,3 +21,9 @@
 - [x] 配套结合[dva](https://github.com/ykfe/egg-react-ssr/tree/master/example/ssr-with-dva)做数据管理的 example 的实现
 - [x] 配套阿里云 serverless [FC](https://github.com/ykfe/ssr-with-fc)版本的实现
 - [x] 配套[TypeScript](https://github.com/ykfe/egg-react-ssr/tree/dev/example/ssr-with-ts)版本的实现
+
+### 本地调试
+> pnpm start
+
+### 上线
+> pnpm prod
