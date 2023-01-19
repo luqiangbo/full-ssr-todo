@@ -6,3 +6,9 @@ exports.resWin = {
 exports.resErr = {
   code: 0,
 }
+
+exports.res200 = (ctx, data) => {
+  ctx.type = 'text/json'
+  ctx.status = 200
+  ctx.body = data
+}

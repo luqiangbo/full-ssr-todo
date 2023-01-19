@@ -2,7 +2,10 @@
   "name": "ssr-with-js",
   "version": "2.3.3",
   "dependencies": {
+    "@ant-design/icons": "^5.0.0",
+    "ahooks": "^3.7.4",
     "antd": "^5.1.5",
+    "axios": "^1.2.3",
     "egg": "^2.21.0",
     "egg-mongoose": "^3.3.1",
     "egg-scripts": "^2.11.0",

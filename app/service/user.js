@@ -1,7 +1,7 @@
 'use strict'
 
 const { Service } = require('egg')
-const { to, resWin, resErr } = require('../utils')
+const { to } = require('../utils')
 
 class UserService extends Service {
   // 查询
@@ -10,40 +10,19 @@ class UserService extends Service {
     return ctx.model.User.find()
   }
   // 添加
-  async add(data) {
+  add(data) {
     const { ctx } = this
-    const [err, res] = await to(ctx.model.User.create(data))
-    if (err) {
-      return {
-        ...resErr,
-        data: err,
-      }
-    }
-    return resWin
+    return ctx.model.User.create(data)
   }
   // 更新
-  async update(data) {
+  update(data) {
     const { ctx } = this
-    const [err, res] = await to(ctx.model.User.update(data))
-    if (err) {
-      return {
-        ...resErr,
-        data: err,
-      }
-    }
-    return resWin
+    return ctx.model.User.update(data)
   }
   // 删除
-  async remove(data) {
+  remove(data) {
     const { ctx } = this
-    const [err, res] = await to(ctx.model.User.remove({ _id: data.id }))
-    if (res.deletedCount !== 1) {
-      return {
-        ...resErr,
-        data: err,
-      }
-    }
-    return resWin
+    return ctx.model.User.remove({ _id: data.id })
   }
 }
 

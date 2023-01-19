@@ -1,18 +1,15 @@
 const Controller = require('egg').Controller
-const { to, resWin, resErr } = require('../utils')
+const { to, resWin, resErr, res200 } = require('../utils')
 
 class UserController extends Controller {
   async find() {
     const { ctx } = this
-
-    try {
-      // Page为webpack打包的chunkName，项目默认的entry为Page
-      ctx.type = 'text/json'
-      ctx.status = 200
-      ctx.body = await ctx.service.user.find()
-    } catch (error) {
-      ctx.logger.error(error)
+    const [err, res] = await to(ctx.service.user.find())
+    if (err) {
+      ctx.logger.error(err)
     }
+    res200(ctx, { ...resWin, data: res })
+    return
   }
   // 增加
   async insert() {
@@ -24,22 +21,22 @@ class UserController extends Controller {
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      ctx.type = 'text/json'
-      ctx.status = 200
-      ctx.body = {
+      res200(ctx, {
         ...resErr,
         data: errValidate,
-      }
+      })
       return
     }
-    const data = await ctx.service.user.add(req)
-    ctx.type = 'text/json'
-    ctx.status = 200
-    ctx.body = {
+    const [err, res] = await to(ctx.service.user.add(req))
+    if (err) {
+      ctx.logger.error(err)
+    }
+    res200(ctx, {
       ...resWin,
       message: '添加成功',
-      data,
-    }
+      data: res,
+    })
+    return
   }
   // 改
   async update() {
@@ -47,27 +44,24 @@ class UserController extends Controller {
     const req = ctx.request.body
     const validate = {
       id: { type: 'string', required: true },
-      name: { type: 'string', required: true }, // 名称
-      age: { type: 'number', required: true }, // 年龄
+      name: { type: 'string', required: false }, // 名称
+      age: { type: 'number', required: false }, // 年龄
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      ctx.type = 'text/json'
-      ctx.status = 200
-      ctx.body = {
-        ...resErr,
-        data: errValidate,
-      }
+      res200(ctx, { ...resErr, data: errValidate })
       return
     }
-    const data = await ctx.service.user.update(req)
-    ctx.type = 'text/json'
-    ctx.status = 200
-    ctx.body = {
+    const [err, res] = await to(ctx.service.user.update(req))
+    if (err) {
+      ctx.logger.error(err)
+    }
+    res200(ctx, {
       ...resWin,
       message: '更新成功',
-      data,
-    }
+      data: res,
+    })
+    return
   }
   async remove() {
     const { ctx, app } = this
@@ -77,22 +71,22 @@ class UserController extends Controller {
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      ctx.type = 'text/json'
-      ctx.status = 200
-      ctx.body = {
+      res200(ctx, {
         ...resErr,
         data: errValidate,
-      }
+      })
       return
     }
-    const data = await ctx.service.user.remove(req)
-    ctx.type = 'text/json'
-    ctx.status = 200
-    ctx.body = {
+    const [err, res] = await to(ctx.service.user.remove(req))
+    if (err) {
+      ctx.logger.error(err)
+    }
+    res200(ctx, {
       ...resWin,
       message: '删除成功',
-      data,
-    }
+      data: res,
+    })
+    return
   }
 }
 

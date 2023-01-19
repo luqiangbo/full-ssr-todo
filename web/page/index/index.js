@@ -1,16 +1,23 @@
-import React from 'react'
-import { Button, Pagination } from 'antd'
+import React, { useEffect } from 'react'
+import { Table } from 'antd'
+import { setState } from 'ahooks'
+import { apiUserList } from '@/api/user'
 
 import './index.less'
 
 function Page(props) {
+  useEffect(() => {
+    init()
+  }, [])
+
+  const init = async () => {
+    const [err, res] = await apiUserList()
+    console.log('init', { err, res })
+  }
+
   return (
     <div>
-      <Button type='primary'>Primary Button</Button>
-      <Button>Default Button</Button>
-      <div>
-        <Pagination defaultCurrent={6} total={500} />
-      </div>
+      <h1>增删改查</h1>
     </div>
   )
 }
