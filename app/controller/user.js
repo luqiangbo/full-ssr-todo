@@ -1,5 +1,5 @@
 const Controller = require('egg').Controller
-const { to, resWin, resErr, res200 } = require('../utils')
+const { to, resWin, resErr } = require('../utils')
 
 class UserController extends Controller {
   async find() {
@@ -8,7 +8,7 @@ class UserController extends Controller {
     if (err) {
       ctx.logger.error(err)
     }
-    res200(ctx, { ...resWin, data: res })
+    resWin(ctx, { res })
     return
   }
   // 增加
@@ -21,21 +21,15 @@ class UserController extends Controller {
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      res200(ctx, {
-        ...resErr,
-        data: errValidate,
-      })
+      resErr(ctx, { errValidate })
       return
     }
     const [err, res] = await to(ctx.service.user.add(req))
     if (err) {
       ctx.logger.error(err)
     }
-    res200(ctx, {
-      ...resWin,
-      message: '添加成功',
-      data: res,
-    })
+    ctx.logger.info(req)
+    resWin(ctx, { message: '添加成功', data: res })
     return
   }
   // 改
@@ -49,18 +43,14 @@ class UserController extends Controller {
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      res200(ctx, { ...resErr, data: errValidate })
+      resErr(ctx, { errValidate })
       return
     }
     const [err, res] = await to(ctx.service.user.update(req))
     if (err) {
       ctx.logger.error(err)
     }
-    res200(ctx, {
-      ...resWin,
-      message: '更新成功',
-      data: res,
-    })
+    resWin(ctx, { message: '更新成功', data: res })
     return
   }
   async remove() {
@@ -71,8 +61,7 @@ class UserController extends Controller {
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
-      res200(ctx, {
-        ...resErr,
+      resErr(ctx, {
         data: errValidate,
       })
       return
@@ -81,8 +70,7 @@ class UserController extends Controller {
     if (err) {
       ctx.logger.error(err)
     }
-    res200(ctx, {
-      ...resWin,
+    resWin(ctx, {
       message: '删除成功',
       data: res,
     })
