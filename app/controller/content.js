@@ -1,10 +1,11 @@
+// 文章列表
 const Controller = require('egg').Controller
 const { to, resWin, resErr } = require('../utils')
 
 class UserController extends Controller {
   async find() {
     const { ctx } = this
-    const [err, res] = await to(ctx.service.user.find())
+    const [err, res] = await to(ctx.service.content.find())
     if (err) {
       ctx.logger.error(err)
       resErr(ctx, { err })
@@ -18,15 +19,19 @@ class UserController extends Controller {
     const { ctx, app } = this
     const req = ctx.request.body
     const validate = {
-      name: { type: 'string', required: true }, // 名称
-      age: { type: 'number', required: true }, // 年龄
+      author: { type: 'string', required: true }, // 作者
+      intro: { type: 'string', required: true }, // 文章简介
+      image: { type: 'string', required: true }, // 图片
+      detail: { type: 'string', required: true }, // 文章详情
+      tags: { type: 'string', required: true }, // 标签
+      types: { type: 'string', required: true }, // 类型
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
       resErr(ctx, { errValidate })
       return
     }
-    const [err, res] = await to(ctx.service.user.add(req))
+    const [err, res] = await to(ctx.service.content.add(req))
     if (err) {
       ctx.logger.error(err)
       resErr(ctx, { err })
@@ -42,22 +47,20 @@ class UserController extends Controller {
     const req = ctx.request.body
     const validate = {
       _id: { type: 'string', required: true },
-      name: { type: 'string', required: false }, // 名称
-      age: { type: 'number', required: false }, // 年龄
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {
       resErr(ctx, { errValidate })
       return
     }
-    const [err, res] = await to(ctx.service.user.update(req))
-    console.log('更新user', { err, res })
+    const [err, res] = await to(ctx.service.content.update(req))
     if (err) {
       ctx.logger.error(err)
       resErr(ctx, { err })
       return
     }
     resWin(ctx, { message: '更新成功', data: res })
+    return
   }
   async remove() {
     const { ctx, app } = this
@@ -72,7 +75,7 @@ class UserController extends Controller {
       })
       return
     }
-    const [err, res] = await to(ctx.service.user.remove(req))
+    const [err, res] = await to(ctx.service.content.remove(req))
     if (err) {
       ctx.logger.error(err)
       resErr(ctx, { err })

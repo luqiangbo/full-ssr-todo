@@ -11,4 +11,8 @@ module.exports = (app) => {
   router.post('/api/user', controller.user.insert)
   router.put('/api/user', controller.user.update)
   router.delete('/api/user', controller.user.remove)
+  router.get('/api/content', controller.content.find)
+  router.post('/api/content', controller.content.insert)
+  router.put('/api/content', controller.content.update)
+  router.delete('/api/content', controller.content.remove)
 }
