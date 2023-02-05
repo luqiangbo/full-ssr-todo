@@ -23,7 +23,84 @@
 - [x] 配套[TypeScript](https://github.com/ykfe/egg-react-ssr/tree/dev/example/ssr-with-ts)版本的实现
 
 ### 本地调试
-> pnpm start
+
+> pnpm dev
 
 ### 上线
+
 > pnpm prod
+
+### 部署本地 mongodb
+
+#### 安装 mongodb
+
+```
+docker pull mongo
+```
+
+#### 部署 mongodb
+
+```bash
+// linux
+docker run --name mongodb_server -p 27016:27017 -v /root/docker/mongodb/mongodb_server/configdb:/data/configdb/ -v /root/docker/mongodb/mongodb_server/db/:/data/db/ -d mongo --auth
+
+// window
+docker run --name mongodb_server -p 27016:27017 -v /D/docker/mongodb/mongodb_server/configdb:/data/configdb/ -v /D/docker/mongodb/mongodb_server/db/:/data/db/ -d mongo --auth
+
+// mac
+docker run --name mongodb_server -p 27016:27017 -v ~/admin/docker/mongodb/mongodb_server/configdb:/data/configdb/ -v ~/admin/docker/mongodb/mongodb_server/db/:/data/db/ -d mongo  --auth
+```
+
+#### 查询 mongodb id
+
+```bash
+docker ps  -a
+```
+
+#### mongodb 的用户名和密码是基于特定数据库的，而不是基于整个系统的。所有所有数据库 db 都需要设置密码
+
+```bash
+# 进入容器
+docker exec -it  a7e5d4e4ca69
+# 进入mongo
+mongosh admin
+
+# 切库, 新增用户
+use admin
+db.createUser({ user: 'admin', pwd: 'admin12306', roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] })
+
+// 认证用户
+db.auth("admin", "admin12306") // 如果返回1，则表示成功。
+# 新建your库
+use your
+# 新建用户
+db.createUser({ user: "your", pwd: "admin12306", roles: [{ role: "dbOwner", db: "your" }] })
+
+db.createUser({ user: "other", pwd: "admin12306", roles: [{ role: "readWrite", db: "your" }] })
+
+# 展示数据库
+show dbs
+
+```
+
+#### 角色
+
+1. Read：允许用户读取指定数据库
+2. readWrite：允许用户读写指定数据库
+3. dbAdmin：允许用户在指定数据库中执行管理函数，如索引创建、删除，查看统计或访问 system.profile
+4. userAdmin：允许用户向 system.users 集合写入，可以找指定数据库里创建、删除和管理用户
+5. clusterAdmin：只在 admin 数据库中可用，赋予用户所有分片和复制集相关函数的管理权限。
+6. readAnyDatabase：只在 admin 数据库中可用，赋予用户所有数据库的读权限
+7. readWriteAnyDatabase：只在 admin 数据库中可用，赋予用户所有数据库的读写权限
+8. userAdminAnyDatabase：只在 admin 数据库中可用，赋予用户所有数据库的 userAdmin 权限
+9. dbAdminAnyDatabase：只在 admin 数据库中可用，赋予用户所有数据库的 dbAdmin 权限。
+10. root：只在 admin 数据库中可用。超级账号，超级权限
+
+### 编辑//config.default.js 连接 mongodb
+
+```js
+  mongoose: {
+    // 数据库的连接方式 用户名:密码@ip:端口/数据库名称
+    url: 'mongodb://admin:admin12306@127.0.0.1:27016/admin',
+  }
+```

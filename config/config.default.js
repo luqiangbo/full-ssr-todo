@@ -8,7 +8,7 @@ module.exports = {
   },
   mongoose: {
     // 数据库的连接方式 用户名:密码@ip:端口/数据库名称
-    url: 'mongodb://admin:admin12306@127.0.0.1:27010/admin',
+    url: 'mongodb://other:admin12306@127.0.0.1:27016/your',
     options: {
       useUnifiedTopology: true, // 重连
       useFindAndModify: false, // 解决useFindAndModify的警告 Mongoose: `findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated
