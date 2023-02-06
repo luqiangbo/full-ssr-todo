@@ -20,6 +20,7 @@ class UserController extends Controller {
     const validate = {
       name: { type: 'string', required: true }, // 名称
       age: { type: 'number', required: true }, // 年龄
+      gender: { type: 'number', required: false }, // 年龄
     }
     const errValidate = app.validator.validate(validate, req)
     if (errValidate) {

@@ -4,6 +4,7 @@ import { ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
 import enUS from 'antd/locale/en_US'
 
+import 'windi.css'
 import '@/assets/common.less'
 import './index.less'
 
