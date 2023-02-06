@@ -1,11 +1,16 @@
 import React, { useEffect } from 'react'
 import { Table } from 'antd'
-import { setState } from 'ahooks'
+import { useSetState } from 'ahooks'
 import { apiUserList } from '@/api/user'
+import { columnsUser } from './data'
 
 import './index.less'
 
 function Page(props) {
+  const [state, setState] = useSetState({
+    userList: [],
+  })
+
   useEffect(() => {
     init()
   }, [])
@@ -13,11 +18,19 @@ function Page(props) {
   const init = async () => {
     const [err, res] = await apiUserList()
     console.log('init', { err, res })
+    if (res) {
+      setState({
+        userList: res.data,
+      })
+    }
   }
 
   return (
     <div>
       <h1>增删改查</h1>
+      <div>
+        <Table dataSource={state.userList} columns={columnsUser} rowKey={'_id'} />;
+      </div>
     </div>
   )
 }

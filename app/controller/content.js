@@ -11,7 +11,7 @@ class UserController extends Controller {
       resErr(ctx, { err })
       return
     }
-    resWin(ctx, { res })
+    resWin(ctx, { data: res })
     return
   }
   // 增加
