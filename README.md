@@ -1,6 +1,6 @@
 # Egg + React + SSR 应用骨架
 
-详细用法实现请查看[官方文档](http://ykfe.surge.sh)
+详细用法实现请查看[官方文档](http://doc.ssr-fc.com/)
 
 # 功能/特性
 

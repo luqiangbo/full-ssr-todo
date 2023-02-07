@@ -1,11 +1,14 @@
 import React from 'react'
 import { Pagination } from 'antd'
 
+import CNav from '@/components/nav'
+
 import './index.less'
 
 function News(props) {
   return (
-    <div>
+    <div className=''>
+      <CNav nav='/news' />
       文章详情
       <div>
         <Pagination defaultCurrent={6} total={500} />

@@ -2,13 +2,13 @@ import React, { useEffect } from 'react'
 import { Table, Input, Button, Popconfirm } from 'antd'
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons'
 import { useSetState } from 'ahooks'
+
 import { apiUserList } from '@/api/user'
-// import { columnsUser } from './data'
+import CNav from '@/components/nav'
 
 import './index.less'
 
 const { Search } = Input
-
 const columnsUser = [
   {
     title: '姓名',
@@ -26,9 +26,18 @@ const columnsUser = [
     title: '性别',
     dataIndex: 'gender',
     key: 'gender',
+    render: (_, record) => {
+      let sex = '空'
+      if (record.sex === 0) {
+        sex = '女'
+      } else if (record.sex === 1) {
+        sex = '男'
+      }
+      return <div>{sex}</div>
+    },
   },
   {
-    title: 'Action',
+    title: '操作',
     key: 'action',
     render: (_, record) => (
       <div>
@@ -48,6 +57,7 @@ const columnsUser = [
 function Page(props) {
   const [state, setState] = useSetState({
     userList: [],
+    navKey: '/user',
   })
 
   useEffect(() => {
@@ -64,12 +74,15 @@ function Page(props) {
     }
   }
 
-  const onSearch = () => {
-    console.log('查询')
+  const onSearch = (e) => {
+    if (e.trim()) {
+      console.log('查询', e)
+    }
   }
 
   return (
     <div className='page-index'>
+      <CNav nav={state.navKey} />
       <h1 className='title'>用户管理</h1>
       <div className='p-1'>
         <Search placeholder='查询' onSearch={onSearch} />
