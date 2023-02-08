@@ -10,7 +10,7 @@ import './index.less'
 
 const commonNode = (props) =>
   // 为了同时兼容ssr/csr请保留此判断，如果你的layout没有内容请使用 props.children ?  props.children  : ''
-  props.children ? <ConfigProvider locale={enUS}>{props.children}</ConfigProvider> : ''
+  props.children ? <ConfigProvider locale={zhCN}>{props.children}</ConfigProvider> : ''
 
 const Layout = (props) => {
   if (__isBrowser__) {

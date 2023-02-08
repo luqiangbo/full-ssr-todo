@@ -7,7 +7,7 @@ exports.resErr = (ctx, body) => {
   ctx.status = 200
   ctx.body = stringify({
     ...body,
-    code: 0,
+    code: 1,
   })
 }
 
@@ -16,6 +16,6 @@ exports.resWin = (ctx, body) => {
   ctx.status = 200
   ctx.body = stringify({
     ...body,
-    code: 1,
+    code: 0,
   })
 }
