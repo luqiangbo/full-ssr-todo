@@ -27,26 +27,27 @@ function Index(props) {
         console.log({ errorInfo })
       })
   }
-  const onCancel = () => {
-    props.onCancel()
+  const onCancel = (isUpdate) => {
+    props.onCancel(isUpdate)
   }
 
   const onFetchUser = async (req) => {
     let api = apiUserAdd
-    if (props.data.type === 'edit') {
-      req._id = props.data.detail._id
+    if (props.data._type === 'edit') {
+      req._id = props.data._id
       api = apiUserUpdate
     }
     const [err, res] = await api(req)
     console.log({ err, res })
-    if (err || res.data.code) {
+    if (err || res.code) {
       console.log(err)
     }
+    onCancel(true)
   }
 
   return (
     <Modal
-      title={props.data.type === 'edit' ? '编辑' : '新增'}
+      title={props.data._type === 'edit' ? '编辑' : '新增'}
       open={true}
       maskClosable={false}
       onOk={onOk}

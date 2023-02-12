@@ -24,7 +24,7 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     const { data } = response
-    console.log({ response })
+    // console.log({ response })
     return Promise.resolve(data)
   },
   (error) => {
