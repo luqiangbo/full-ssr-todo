@@ -48,7 +48,6 @@ class UserController extends Controller {
       resErr(ctx, { err })
       return
     }
-    ctx.logger.info(req)
     resWin(ctx, { message: '添加成功', data: res })
     return
   }

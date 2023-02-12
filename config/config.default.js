@@ -42,4 +42,5 @@ module.exports = {
   custom: {
     // 配置文件
   },
+  middleware: ['logger'],
 }
