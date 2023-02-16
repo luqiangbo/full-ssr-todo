@@ -15,4 +15,5 @@ module.exports = (app) => {
   router.post('/api/content', controller.content.insert)
   router.put('/api/content', controller.content.update)
   router.delete('/api/content', controller.content.remove)
+  router.post('/api/upload', controller.http.upload)
 }

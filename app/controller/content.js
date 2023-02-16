@@ -2,7 +2,7 @@
 const Controller = require('egg').Controller
 const { to, resWin, resErr } = require('../utils')
 
-class UserController extends Controller {
+class ContentController extends Controller {
   async find() {
     const { ctx } = this
     const [err, res] = await to(ctx.service.content.find())
@@ -88,4 +88,4 @@ class UserController extends Controller {
   }
 }
 
-module.exports = UserController
+module.exports = ContentController

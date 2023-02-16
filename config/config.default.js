@@ -21,10 +21,10 @@ module.exports = {
     },
     csrf: { enable: false },
   },
-  // multipart: {
-  //   // 上传文件的配置
-  //   mode: 'file',
-  // },
+  multipart: {
+    // 上传文件的配置
+    mode: 'file',
+  },
   httpclient: {
     // 解决 dns 错误
     enableDNSCache: true,
