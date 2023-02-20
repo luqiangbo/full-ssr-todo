@@ -6,6 +6,7 @@ exports.resErr = (ctx, body) => {
   ctx.type = 'text/json'
   ctx.status = 200
   ctx.body = stringify({
+    data: null,
     ...body,
     code: 1,
   })
@@ -15,6 +16,7 @@ exports.resWin = (ctx, body) => {
   ctx.type = 'text/json'
   ctx.status = 200
   ctx.body = stringify({
+    data: null,
     ...body,
     code: 0,
   })

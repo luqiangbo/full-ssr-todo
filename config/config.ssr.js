@@ -1,7 +1,7 @@
 const resolvePath = (path) => require('path').resolve(__dirname, path)
 
 module.exports = {
-  type: 'ssr', // 指定运行类型可设置为csr切换为客户端渲染
+  type: 'csr', // 指定运行类型可设置为csr切换为客户端渲染 ssr
   routes: [
     {
       path: '/',

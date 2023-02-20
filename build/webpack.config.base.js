@@ -5,7 +5,6 @@ const paths = require('./paths')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const getStyleLoaders = require('./util').getStyleLoaders
-const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
 
 const webpackModule = {
   strictExportPresence: true,
@@ -108,7 +107,6 @@ module.exports = {
       filename: 'static/css/[name].css',
       chunkFilename: 'static/css/[name].chunk.css',
     }),
-    new WindiCSSWebpackPlugin(),
   ],
   performance: false,
 }

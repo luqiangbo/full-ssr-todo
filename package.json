@@ -13,10 +13,12 @@
     "egg-static": "^2.2.0",
     "egg-validate": "^2.0.2",
     "json-stable-stringify": "^1.0.2",
+    "koa-ratelimit": "^5.0.1",
     "lodash": "^4.17.21",
     "nanoid": "^3.3.4",
     "react": "16.8.3",
     "react-dom": "16.8.3",
+    "react-router": "^5.0.0",
     "react-router-dom": "^5.0.0",
     "serialize-javascript": "^2.1.2",
     "ykfe-utils": "^3.0.0"
@@ -30,7 +32,8 @@
     "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.config.server.js",
     "build:client": "cross-env NODE_ENV=production ykcli build",
     "build": "rimraf dist && npm run build:client && npm run build:server",
-    "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build"
+    "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build",
+    "good": "eggctl start"
   },
   "browserslist": [
     ">0.2%",
@@ -76,7 +79,6 @@
     "webpack-manifest-plugin": "^2.0.4",
     "webpack-merge": "^4.1.4",
     "webpack-node-externals": "^1.7.2",
-    "windicss-webpack-plugin": "^1.7.7",
     "yk-cli": "^3.0.0"
   }
 }
